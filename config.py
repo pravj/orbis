@@ -3,7 +3,7 @@ global configurations
 """
 
 # grid-size
-size = 15
+size = 16
 
 # number of blocks
 total = size*size
