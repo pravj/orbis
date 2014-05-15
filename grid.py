@@ -1,7 +1,14 @@
 #!/usr/bin/python
 
-from gi.repository import Gtk
+try:
+	from gi.repository import Gtk, Gdk
+except ImportError:
+	raise Exception('unable to import required module')
+
 from config import Config
+from pallete import Pallete
+
+import random
 
 
 class Grid(Gtk.Window):
@@ -13,14 +20,20 @@ class Grid(Gtk.Window):
 		# array of all blocks in grid
 		self.Blocks = []
 
+		# array of colors in pallete
+		self.colors = self.cfg.colors		
+
 		# create a window and table
 		Gtk.Window.__init__(self, title=self.cfg.name)
 		self.table = Gtk.Table(self.cfg.size, self.cfg.size, True)
 
 		# add generated table to window
 		self.add(self.table)
-		self.generateTable()
-		self.addPallete()
+		self.generate_table()
+		self.add_pallete()
+
+		# activate stylesheet
+		self.add_style()
 
 	"""
 	return n'th number block
@@ -28,7 +41,9 @@ class Grid(Gtk.Window):
 	where (x,y) shows indeces in multi-dimension array
 	"""
 	def block(self, n):
-		return Gtk.Button(label='%d' % (n))
+		button = Gtk.Button(label='---')
+		button.set_name('%s' % (random.choice(self.colors)))
+		return button
 
 	"""
 	helps to arrange each block in table
@@ -44,7 +59,7 @@ class Grid(Gtk.Window):
 	"""
 	generates elements in table
 	"""
-	def generateTable(self):
+	def generate_table(self):
 		# prepare array of blocks
 		for i in range(0, self.cfg.total):
 			self.Blocks.append(self.block(i+1))
@@ -57,15 +72,21 @@ class Grid(Gtk.Window):
 	"""
 	adds color pallete
 	"""
-	def addPallete(self):
-		self.table.attach(Gtk.Button(label='1'), 2,4,16,18)
-		self.table.attach(Gtk.Button(label='2'), 4,6,16,18)
-		self.table.attach(Gtk.Button(label='3'), 6,8,16,18)
-		self.table.attach(Gtk.Button(label='4'), 8,10,16,18)
-		self.table.attach(Gtk.Button(label='5'), 10,12,16,18)
-		self.table.attach(Gtk.Button(label='6'), 12,14,16,18)
+	def add_pallete(self):
+		pallete = Pallete()
+		pallete.attach_pallete(self.table)
 
-grid = Grid()
-grid.connect('delete-event', Gtk.main_quit)
-grid.show_all()
-Gtk.main()
+	"""
+	adds stylesheet for appropriete elements
+	"""
+	def add_style(self):
+		style = Gtk.CssProvider()
+
+		with open('assets/pallete.css', 'r') as f:
+			css = f.read()
+			f.close()
+		
+		style.load_from_data(css)
+		sppa = Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+		Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), style, sppa)
+

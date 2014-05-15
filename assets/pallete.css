@@ -1,0 +1,36 @@
+/*
+* pallete.css
+* 
+* stylesheet file for buttons and color pallete used in game 
+*/
+
+
+#red {
+	background: #f00;
+	color: #f00;
+}
+
+#green {
+	background: #0f0;
+	color: #0f0;
+}
+
+#blue {
+	background: #00f;
+	color: #00f;
+}
+
+#yellow {
+	background: #0ff;
+	color: #0ff;
+}
+
+#orange {
+	background: #f0f;
+	color: #f0f;
+}
+
+#purple {
+	background: #ff0;
+	color: #ff0;
+}
