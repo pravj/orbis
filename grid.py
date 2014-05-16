@@ -46,11 +46,19 @@ class Grid(Gtk.Window):
 	def block(self, n):
 		button = Gtk.Button(label='---')
 		button.set_name('%s' % (random.choice(self.colors)))
+		button.connect('clicked', self.block_click)
+		# row and column indeces for multi-dimension array
+		button.r, button.c = (n-1)/self.cfg.size, (n-1) % self.cfg.size
 		return button
+
+	def block_click(self, button):
+		print button.get_name()
+		print button.r
+		print button.c
 
 	"""
 	helps to arrange each block in table
-	according to its indeces in multi-dimension array
+	according to its indeces in 2D-array
 	"""
 	def arrangment(self, x, y):
 		"""
@@ -63,17 +71,21 @@ class Grid(Gtk.Window):
 	generates elements in table
 	"""
 	def generate_table(self):
-		# prepare array of blocks
-		for i in range(0, self.cfg.total):
-			self.Blocks.append(self.block(i+1))
+		# prepare 2D-array of blocks
+		for i in range(0, self.cfg.size):
+			temp = []
+			for j in range(0, self.cfg.size):
+				temp.append(self.block(i * self.cfg.size + j + 1))
+			self.Blocks.append(temp)
 
 		# attach/arrange blocks in table
-		for j in range(0, self.cfg.total):
-			pos = self.arrangment(j/(self.cfg.size), j % (self.cfg.size))
-			self.table.attach(self.Blocks[j], pos[0], pos[1], pos[2], pos[3])
+		for k in range(0, self.cfg.total):
+			x,y = k/(self.cfg.size), k % (self.cfg.size)
+			pos = self.arrangment(x, y)
+			self.table.attach(self.Blocks[x][y], pos[0], pos[1], pos[2], pos[3])
 
 	"""
-	adds color pallete
+	adds color pallete to grid's table layout
 	"""
 	def add_pallete(self):
 		self.pallete.attach_pallete(self.table)

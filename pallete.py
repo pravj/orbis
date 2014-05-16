@@ -17,7 +17,7 @@ class Pallete:
 		# array of colors used in pallete
 		self.colors = self.cfg.colors
 
-		# pallete object : 'Array' containing 'Dict' object
+		# pallete object : 'Array'
 		self.pallete = []
 
 		# prepare the pallete
@@ -43,7 +43,7 @@ class Pallete:
 		return self.pallete
 
 	"""
-	attach the pallete in grid's table layout
+	attach the pallete in given grid's table layout
 	"""
 	def attach_pallete(self, table):
 		pallete = self.instance()
