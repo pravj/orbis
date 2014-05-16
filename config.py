@@ -12,7 +12,7 @@ total = size*size
 name = 'Game'
 
 # array of colors in pallete
-colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple']
+colors = ['ross', 'rachel', 'monica', 'joey', 'phoebe', 'chandler']
 
 # css file path for button's color pallete
 css = 'assets/pallete.css'

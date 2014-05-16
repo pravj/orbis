@@ -5,32 +5,38 @@
 */
 
 
-#red {
-	background: #f00;
-	color: #f00;
+#ross {
+	background: #c75858;
+	color: #c75858;
+	box-shadow: 0 0 5px black; 
 }
 
-#green {
-	background: #0f0;
-	color: #0f0;
+#rachel {
+	background: #9cad6f;
+	color: #9cad6f;
+	box-shadow: 0 0 5px black; 
 }
 
-#blue {
-	background: #00f;
-	color: #00f;
+#monica {
+	background: #6f7cad;
+	color: #6f7cad;
+	box-shadow: 0 0 5px black; 
 }
 
-#yellow {
-	background: #0ff;
-	color: #0ff;
+#joey {
+	background: #247568;
+	color: #247568;
+	box-shadow: 0 0 5px black; 
 }
 
-#orange {
-	background: #f0f;
-	color: #f0f;
+#phoebe {
+	background: #6c756e;
+	color: #6c756e;
+	box-shadow: 0 0 5px black; 
 }
 
-#purple {
-	background: #ff0;
-	color: #ff0;
+#chandler {
+	background: #79517a;
+	color: #79517a;
+	box-shadow: 0 0 5px black;
 }

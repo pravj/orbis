@@ -9,27 +9,31 @@ from config import Config
 
 
 class Pallete:
-	
+
 	def __init__(self):
 		# global configurations
 		self.cfg = Config()
-	
+
 		# array of colors used in pallete
 		self.colors = self.cfg.colors
 
-		# pallete object : type 'Array'
+		# pallete object : 'Array' containing 'Dict' object
 		self.pallete = []
 
 		# prepare the pallete
 		self.prepare()
+
+		# current active color in pallete
+		self.active = None
 
 	"""
 	prepare the color pallete to be added in grid
 	"""
 	def prepare(self):
 		for i in range(6):
-			button = Gtk.Button(label='---')
+			button = Gtk.Button(label='---')	
 			button.set_name(self.colors[i])
+			button.connect('clicked', self.pallete_click)
 			self.pallete.append(button)
 
 	"""
@@ -45,4 +49,15 @@ class Pallete:
 		pallete = self.instance()
 		for i in range(6):
 			table.attach(pallete[i], 2*(i+1), 2*(i+2), self.cfg.size, self.cfg.size+2)
+
+	"""
+	set active color on clicking pallete
+	"""
+	def pallete_click(self, button):
+		# clicking same color in pallete again 
+		if button.get_name() == self.active:
+			pass
+
+		else:
+			self.active = button.get_name()
 

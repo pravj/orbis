@@ -26,7 +26,10 @@ class Grid(Gtk.Window):
 		# create a window and table
 		Gtk.Window.__init__(self, title=self.cfg.name)
 		self.table = Gtk.Table(self.cfg.size, self.cfg.size, True)
-
+		
+		# pallete element to be added
+		self.pallete = Pallete()
+		
 		# add generated table to window
 		self.add(self.table)
 		self.generate_table()
@@ -73,8 +76,7 @@ class Grid(Gtk.Window):
 	adds color pallete
 	"""
 	def add_pallete(self):
-		pallete = Pallete()
-		pallete.attach_pallete(self.table)
+		self.pallete.attach_pallete(self.table)
 
 	"""
 	adds stylesheet for appropriete elements
