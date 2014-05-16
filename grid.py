@@ -118,14 +118,14 @@ class Grid(Gtk.Window):
 	game moves ahead, only when player clicks top-left corner block
 	"""
 	def right_block_click(self, button):
-		print button.get_name()
-		print self.brain.neighbors(button)
+		if (self.pallete.active != None):
+			self.brain.floodfill(button, button.get_name(), self.pallete.active)
+		else:
+			pass
 
 	"""
 	when player clicks other then top-left corner block
 	"""
 	def wrong_block_click(self, button):
-		print button.get_name()
-		print self.brain.neighbors(button)
-
+		pass
 

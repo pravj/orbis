@@ -12,9 +12,17 @@ class Brain:
 		self.Array = Array
 
 	def floodfill(self, node, target, replace):
-
 		# using recursion for now
-		pass
+
+		if (node.get_name() != target):
+			return
+		else:
+			# changes its color
+			node.set_name(replace)
+
+			for nodes in self.neighbors(node):
+				self.floodfill(nodes, target, replace)
+			
 	
 	"""
 	returns an array of nodes in neighbor of a node inside an NxN grid
@@ -33,13 +41,13 @@ class Brain:
 		# array representing neighbors, elements in adjacent 4 directions
 		neighbors = []
 		if (x+1 < N):
-			neighbors.append(grid[x+1][y].color)
+			neighbors.append(grid[x+1][y])
 		if (y+1 < N):
-			neighbors.append(grid[x][y+1].color)
+			neighbors.append(grid[x][y+1])
 		if (y!=0):
-			neighbors.append(grid[x][y-1].color)
+			neighbors.append(grid[x][y-1])
 		if (x!=0):
-			neighbors.append(grid[x-1][y].color)
+			neighbors.append(grid[x-1][y])
 
 		return neighbors
 
