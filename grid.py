@@ -5,6 +5,7 @@ try:
 except ImportError:
 	raise Exception('unable to import required module')
 
+from brain import Brain
 from config import Config
 from pallete import Pallete
 
@@ -17,7 +18,7 @@ class Grid(Gtk.Window):
 		# global configurations
 		self.cfg = Config()
 
-		# array of all blocks in grid
+		# 2D-array having all blocks in grid
 		self.Blocks = []
 
 		# array of colors in pallete
@@ -35,6 +36,9 @@ class Grid(Gtk.Window):
 		self.generate_table()
 		self.add_pallete()
 
+		# brain instance
+		self.brain = Brain(self.Blocks)
+
 		# activate stylesheet
 		self.add_style()
 
@@ -46,15 +50,21 @@ class Grid(Gtk.Window):
 	def block(self, n):
 		button = Gtk.Button(label='---')
 		button.set_name('%s' % (random.choice(self.colors)))
-		button.connect('clicked', self.block_click)
-		# row and column indeces for multi-dimension array
-		button.r, button.c = (n-1)/self.cfg.size, (n-1) % self.cfg.size
-		return button
+		
+		# top-left corner block clicked
+		if (n==1):
+			button.connect('clicked', self.right_block_click)
+		# other blocks clicked
+		else:
+			button.connect('clicked', self.wrong_block_click)
 
-	def block_click(self, button):
-		print button.get_name()
-		print button.r
-		print button.c
+		# row and column indeces for multi-dimension array
+		button.x, button.y = (n-1)/self.cfg.size, (n-1) % self.cfg.size
+
+		# color associated with block/button
+		button.color = button.get_name()
+
+		return button
 
 	"""
 	helps to arrange each block in table
@@ -103,4 +113,19 @@ class Grid(Gtk.Window):
 		style.load_from_data(css)
 		sppa = Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
 		Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), style, sppa)
+	
+	"""
+	game moves ahead, only when player clicks top-left corner block
+	"""
+	def right_block_click(self, button):
+		print button.get_name()
+		print self.brain.neighbors(button)
+
+	"""
+	when player clicks other then top-left corner block
+	"""
+	def wrong_block_click(self, button):
+		print button.get_name()
+		print self.brain.neighbors(button)
+
 
