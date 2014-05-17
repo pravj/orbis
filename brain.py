@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-from config import Config
-
 
 class Brain:
 
@@ -22,7 +20,6 @@ class Brain:
 
 			for nodes in self.neighbors(node):
 				self.floodfill(nodes, target, replace)
-			
 	
 	"""
 	returns an array of nodes in neighbor of a node inside an NxN grid
@@ -44,10 +41,9 @@ class Brain:
 			neighbors.append(grid[x+1][y])
 		if (y+1 < N):
 			neighbors.append(grid[x][y+1])
-		if (y!=0):
+		if (y != 0):
 			neighbors.append(grid[x][y-1])
-		if (x!=0):
+		if (x != 0):
 			neighbors.append(grid[x-1][y])
 
 		return neighbors
-

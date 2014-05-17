@@ -120,6 +120,7 @@ class Grid(Gtk.Window):
 	def right_block_click(self, button):
 		if (self.pallete.active != None):
 			self.brain.floodfill(button, button.get_name(), self.pallete.active)
+			print self.brain.filled
 		else:
 			pass
 
